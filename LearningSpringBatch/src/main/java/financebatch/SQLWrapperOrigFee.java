@@ -23,6 +23,7 @@ public class SQLWrapperOrigFee {
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) {
                 // to be filled when have found distinct fields needed
+                //
             }
         }
 
