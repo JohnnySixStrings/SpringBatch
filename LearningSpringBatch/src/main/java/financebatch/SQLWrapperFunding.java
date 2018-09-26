@@ -21,11 +21,14 @@ public class SQLWrapperFunding {
         try (Connection con = sqlConnection.getConnection(); Statement statement = con.createStatement()) {
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) {
-                //Empty till
+                duplicate.add(new FundingPurchaseStatementUpgrade());
             }
         }
 
 
 
+    }
+    public boolean contains(FundingPurchaseStatementUpgrade item){
+        return duplicate.contains(item);
     }
 }

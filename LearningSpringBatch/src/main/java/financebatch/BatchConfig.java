@@ -31,7 +31,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import javax.sql.DataSource;
 import java.io.IOException;
 
-
+// Contains the Factories, Jobs, steps "Basically the main program"
 
 @Configuration
 @EnableBatchProcessing
