@@ -145,4 +145,20 @@ public class OriginationFeeUpgrade {
                 ", marketingFeeSeasoned='" + marketingFeeSeasoned + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof OriginationFeeUpgrade))return false;
+        OriginationFeeUpgrade comp = (OriginationFeeUpgrade) obj;
+        return comp.date.equals(this.date) &&
+                comp.originationVolume.equals(this.originationVolume) &&
+                comp.cumulativeVolume.equals(this.cumulativeVolume) &&
+                comp.designatedAmount.equals(this.designatedAmount) &&
+                comp.itemCount.equals(this.itemCount) &&
+                comp.perLoanFee.equals(this.perLoanFee) &&
+                comp.totalOriginationVolume.equals(this.totalOriginationVolume) &&
+                comp.borrowerOriginationFee.equals(this.borrowerOriginationFee) &&
+                comp.perLoanAmount.equals(perLoanAmount) &&
+                comp.marketingFeeDue.equals(this.marketingFeeDue);
+    }
 }

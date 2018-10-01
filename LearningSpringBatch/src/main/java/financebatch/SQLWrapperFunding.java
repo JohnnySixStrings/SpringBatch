@@ -21,7 +21,15 @@ public class SQLWrapperFunding {
         try (Connection con = sqlConnection.getConnection(); Statement statement = con.createStatement()) {
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) {
-                duplicate.add(new FundingPurchaseStatementUpgrade());
+                duplicate.add(new FundingPurchaseStatementUpgrade(rs.getString("FundingDate"),
+                        rs.getString("LoanID"),rs.getString("GrossFundingAmount"),
+                        rs.getString("NetFundingAmount"), rs.getString("OriginationFees"),
+                        rs.getString("State"),rs.getString("FinalGrade"),
+                        rs.getString("FICOofCustomer"),rs.getString("Term"),"",
+
+                        rs.getString("InterestRate"),rs.getString("NumOfDaysInterest"),
+                        rs.getString("InterimInterest"),rs.getString("FirstMoPI"),
+                        rs.getString("ServiceFee"),rs.getString("TotalPurchaseAmount"),"","","",""));
             }
         }
 

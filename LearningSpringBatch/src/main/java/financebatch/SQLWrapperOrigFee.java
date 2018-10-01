@@ -20,7 +20,11 @@ public class SQLWrapperOrigFee {
         try (Connection con = sqlConnection.getConnection(); Statement statement = con.createStatement()) {
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) {
-                duplicate.add(new OriginationFeeUpgrade());
+                duplicate.add(new OriginationFeeUpgrade(rs.getString("Date"),rs.getString("OriginationVolume"),
+                        rs.getString("CumulativeVolume"),rs.getString("DesignatedVolume"),
+                        rs.getString("ItemCount"), rs.getString("PerLoanFee"), rs.getString("TotalOriginationVolume"),
+                        rs.getString("BorrowerOriginationFee"), "",rs.getString("PerLoanAmount"),
+                        rs.getString("MarketingFeeDue"),""));
             }
         }
 

@@ -231,4 +231,24 @@ public class FundingPurchaseStatementUpgrade {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof FundingPurchaseStatementUpgrade)) return false;
+        FundingPurchaseStatementUpgrade comp = (FundingPurchaseStatementUpgrade)obj;
+        return comp.fundingDate.equals(this.fundingDate) &&
+                comp.loanId.equals(this.loanId) &&
+                comp.grossFundingAmount.equals(this.grossFundingAmount) &&
+                comp.originationFees.equals(this.originationFees) &&
+                comp.state.equals(this.state) &&
+                comp.finalGrade.equals(this.finalGrade) &&
+                comp.ficoOfCustomer.equals(this.ficoOfCustomer) &&
+                comp.term.equals(this.term) &&
+                comp.interestRate.equals(this.interestRate) &&
+                comp.numberOfDaysOfInterest.equals(this.numberOfDaysOfInterest) &&
+                comp.interimInterest.equals(this.interimInterest) &&
+                comp.firstMonthPAndI.equals(this.firstMonthPAndI) &&
+                comp.serviceFee.equals(this.serviceFee) &&
+                comp.totalPurchaseAmount.equals(totalPurchaseAmount);
+    }
+
 }
