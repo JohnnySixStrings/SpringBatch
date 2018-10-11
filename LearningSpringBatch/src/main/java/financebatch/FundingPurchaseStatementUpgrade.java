@@ -1,7 +1,9 @@
 package financebatch;
 
 public class FundingPurchaseStatementUpgrade {
-    public FundingPurchaseStatementUpgrade(){}
+    public FundingPurchaseStatementUpgrade() {
+    }
+
     public FundingPurchaseStatementUpgrade(String fundingDate, String loanId, String grossFundingAmount, String netFundingAmount,
                                            String originationFees, String state, String finalGrade, String ficoOfCustomer,
                                            String term, String purchaseDate, String interestRate, String numberOfDaysOfInterest,
@@ -75,7 +77,9 @@ public class FundingPurchaseStatementUpgrade {
         this.grossFundingAmount = grossFundingAmount;
     }
 
-    public String getNetFundingAmount() { return netFundingAmount; }
+    public String getNetFundingAmount() {
+        return netFundingAmount;
+    }
 
     public void setNetFundingAmount(String netFundingAmount) {
         this.netFundingAmount = netFundingAmount;
@@ -141,7 +145,9 @@ public class FundingPurchaseStatementUpgrade {
         return numberOfDaysOfInterest;
     }
 
-    public void setNumberOfDaysOfInterest(String numberOfDaysOfInterest) {this.numberOfDaysOfInterest = numberOfDaysOfInterest;}
+    public void setNumberOfDaysOfInterest(String numberOfDaysOfInterest) {
+        this.numberOfDaysOfInterest = numberOfDaysOfInterest;
+    }
 
     public String getInterimInterest() {
         return interimInterest;
@@ -159,9 +165,13 @@ public class FundingPurchaseStatementUpgrade {
         this.firstMonthPAndI = firstMonthPAndI;
     }
 
-    public String getServiceFee() { return serviceFee; }
+    public String getServiceFee() {
+        return serviceFee;
+    }
 
-    public void setServiceFee(String serviceFee) { this.serviceFee = serviceFee; }
+    public void setServiceFee(String serviceFee) {
+        this.serviceFee = serviceFee;
+    }
 
     public String getTotalPurchaseAmount() {
         return totalPurchaseAmount;
@@ -204,7 +214,6 @@ public class FundingPurchaseStatementUpgrade {
     }
 
 
-
     @Override
     public String toString() {
         return "FundingPurchaseStatementUpgrade{" +
@@ -230,11 +239,13 @@ public class FundingPurchaseStatementUpgrade {
                 ", allocatedId='" + allocatedId + '\'' +
                 '}';
     }
-
+    // need to test override equals with junit
+    // overriding the equals method because the fields in the database have less fields than the original document
+    // in order for my check against duplicate data I need to compare only certain fields from the object.
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof FundingPurchaseStatementUpgrade)) return false;
-        FundingPurchaseStatementUpgrade comp = (FundingPurchaseStatementUpgrade)obj;
+        if (!(obj instanceof FundingPurchaseStatementUpgrade)) return false;
+        FundingPurchaseStatementUpgrade comp = (FundingPurchaseStatementUpgrade) obj;
         return comp.fundingDate.equals(this.fundingDate) &&
                 comp.loanId.equals(this.loanId) &&
                 comp.grossFundingAmount.equals(this.grossFundingAmount) &&

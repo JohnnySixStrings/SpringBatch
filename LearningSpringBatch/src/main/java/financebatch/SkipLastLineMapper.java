@@ -11,13 +11,14 @@ import org.springframework.util.Assert;
 
 public class SkipLastLineMapper<T>implements LineMapper<T>, InitializingBean  {
 
-
+        // Need to implement tests.
         private LineTokenizer tokenizer;
 
         private FieldSetMapper<T> fieldSetMapper;
 
         @Override
         public T mapLine(String line, int lineNumber) throws Exception {
+            if(lineNumber==0)return null;
             if(line.contains(",,,,,,")) return null;
             return fieldSetMapper.mapFieldSet(tokenizer.tokenize(line));
         }

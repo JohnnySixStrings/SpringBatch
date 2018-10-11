@@ -1,7 +1,7 @@
 package financebatch;
 
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,6 +148,7 @@ public class BatchConfig {
         lineTokenizer.setQuoteCharacter('"');
         lineTokenizer.setDelimiter(",");
         lineTokenizer.setStrict(false);
+        
         beanWrapper.setTargetType(OriginationFeeUpgrade.class);
         lineMapper.setLineTokenizer(lineTokenizer);
         lineMapper.setFieldSetMapper(beanWrapper);
