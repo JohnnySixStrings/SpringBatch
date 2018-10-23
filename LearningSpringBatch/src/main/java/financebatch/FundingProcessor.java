@@ -1,15 +1,14 @@
 package financebatch;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+
 import org.springframework.batch.item.ItemProcessor;
 
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class FundingProcessor implements ItemProcessor <FundingPurchaseStatementUpgrade,FundingPurchaseStatementUpgrade> {
+    private SQLWrapperFunding duplicate;
 
-private SQLWrapperFunding duplicate;
 
     {
         try {
@@ -23,9 +22,35 @@ private SQLWrapperFunding duplicate;
     @Override
     public FundingPurchaseStatementUpgrade process(FundingPurchaseStatementUpgrade item) {
         //Need to set up the check against current items in the Database
-        if(duplicate.contains(item)){
+        if (item.getLoanId().isEmpty()){
             return null;
         }
-       return item;
+        if(item.getLoanId().contains("X")){
+            String current = new StringBuilder(item.getLoanId()).replace(0,3,"000").toString(); // "000"+item.getLoanId().substring(2);
+            item.setLoanId(current);
+
+        }
+
+        if(duplicate.contains(new FundingPurchaseFromDB(item.getFundingDate(),
+                item.getLoanId(),
+                item.getGrossFundingAmount(),
+                item.getNetFundingAmount(),
+                item.getOriginationFees(),
+                item.getState(),
+                item.getFinalGrade(),
+                item.getFicoOfCustomer(),
+                item.getTerm(),
+                item.getPurchaseDate(),
+                item.getInterestRate(),
+                item.getNumberOfDaysOfInterest(),
+                item.getInterimInterest(),
+                item.getFirstMonthPAndI(),
+                item.getServiceFee(),
+                item.getTotalPurchaseAmount()))){
+            return null;
+        }
+
+            return item;
+
     }
 }

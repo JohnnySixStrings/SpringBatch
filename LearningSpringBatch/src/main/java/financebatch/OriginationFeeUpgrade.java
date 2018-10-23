@@ -1,7 +1,5 @@
 package financebatch;
 
-import java.util.Date;
-
 public class OriginationFeeUpgrade {
 
     private String date;
@@ -145,7 +143,7 @@ public class OriginationFeeUpgrade {
                 ", marketingFeeSeasoned='" + marketingFeeSeasoned + '\'' +
                 '}';
     }
-
+/*
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof OriginationFeeUpgrade))return false;
@@ -160,5 +158,5 @@ public class OriginationFeeUpgrade {
                 comp.borrowerOriginationFee.equals(this.borrowerOriginationFee) &&
                 comp.perLoanAmount.equals(perLoanAmount) &&
                 comp.marketingFeeDue.equals(this.marketingFeeDue);
-    }
+    }*/
 }

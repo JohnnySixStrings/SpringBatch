@@ -1,7 +1,5 @@
 package financebatch;
 
-
-
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +58,7 @@ public class BatchConfig {
         try {
             resources = patternResolver.getResources("file:Z:/Upgrade/Partner_Funding/*.csv");
             for (Resource resource:resources) {
-                System.out.print("\n URI:"+resource.getURI()+"\n URL:"+resource.getURL()+"\n isFile:"+resource.isFile()+"\n  file name:"+ resource.getFilename()+"\n is readable:"+resource.isReadable());
+                System.out.print(" file name:"+ resource.getFilename()+"\n");
             }
 
         } catch (IOException e){
@@ -79,9 +77,10 @@ public class BatchConfig {
     public FlatFileItemReader<FundingPurchaseStatementUpgrade> csvReader(){
          final FlatFileItemReader<FundingPurchaseStatementUpgrade> flatFileItemReader = new FlatFileItemReader<>();
          final BeanWrapperFieldSetMapper<FundingPurchaseStatementUpgrade> beanWrapper = new BeanWrapperFieldSetMapper<>();
-         final SkipLastLineMapper<FundingPurchaseStatementUpgrade> lineMapper = new SkipLastLineMapper<>();
+         final DefaultLineMapper<FundingPurchaseStatementUpgrade> lineMapper = new DefaultLineMapper<>();
          final DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
          lineTokenizer.setDelimiter(",");
+         lineTokenizer.setStrict(false);
          lineTokenizer.setQuoteCharacter('"');
          lineTokenizer.setNames("fundingDate","loanId","grossFundingAmount","netFundingAmount",
                  "originationFees","state","finalGrade","ficoOfCustomer","term","purchaseDate",
@@ -92,6 +91,7 @@ public class BatchConfig {
          lineMapper.setLineTokenizer(lineTokenizer);
          lineMapper.setFieldSetMapper(beanWrapper);
          flatFileItemReader.setLineMapper(lineMapper);
+         flatFileItemReader.setLinesToSkip(1);
          return flatFileItemReader;
 
     }
@@ -120,7 +120,7 @@ public class BatchConfig {
         try {
             resources = patternResolver.getResources("file:Z:/Upgrade/Origination_Fee/*.csv");
             for (Resource resource:resources) {
-                System.out.print("\n URI:"+resource.getURI()+"\n URL:"+resource.getURL()+"\n isFile:"+resource.isFile()+"\n  file name:"+ resource.getFilename()+"\n is readable:"+resource.isReadable());
+                System.out.print("file name:"+ resource.getFilename()+"\n ");
             }
 
         } catch (IOException e){
@@ -141,19 +141,19 @@ public class BatchConfig {
         final BeanWrapperFieldSetMapper<OriginationFeeUpgrade> beanWrapper = new BeanWrapperFieldSetMapper<>();
         final DefaultLineMapper<OriginationFeeUpgrade> lineMapper = new DefaultLineMapper<>();
         final DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-        beanWrapper.setDistanceLimit(4);
-        lineTokenizer.setNames("date","originationVolume","cumulativeVolume","designatedAmount","itemCount","perLoanFee",
-                "totalOriginationVolume","borrowerOriginationFee","perLoanAmount","designatedAmount1","marketingFeeDue",
-                "marketFeeSeasoned");
         lineTokenizer.setQuoteCharacter('"');
         lineTokenizer.setDelimiter(",");
         lineTokenizer.setStrict(false);
-        
+        lineTokenizer.setNames("date","originationVolume","cumulativeVolume","designatedAmount","itemCount","perLoanFee",
+                "totalOriginationVolume","borrowerOriginationFee","perLoanAmount","designatedAmount1","marketingFeeDue",
+                "marketFeeSeasoned");
+
         beanWrapper.setTargetType(OriginationFeeUpgrade.class);
         lineMapper.setLineTokenizer(lineTokenizer);
         lineMapper.setFieldSetMapper(beanWrapper);
 
         flatFileItemReader.setLineMapper(lineMapper);
+        flatFileItemReader.setLinesToSkip(1);
         return flatFileItemReader;
 
     }
@@ -197,8 +197,8 @@ public class BatchConfig {
                 .incrementer(new RunIdIncrementer())
                 .flow(step1(fundingInsertDB(dataSource())))
                 .next(step2(origFeeInsertDB(dataSource())))
-                .next(step3(fileMoveTaskletFunding()))
-                .next(step4(fileMoveTaskletOrigFee()))
+                //.next(step3(fileMoveTaskletFunding()))
+                //.next(step4(fileMoveTaskletOrigFee()))
                 .end()
                 .build();
     }

@@ -242,7 +242,7 @@ public class FundingPurchaseStatementUpgrade {
     // need to test override equals with junit
     // overriding the equals method because the fields in the database have less fields than the original document
     // in order for my check against duplicate data I need to compare only certain fields from the object.
-    @Override
+   /* @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof FundingPurchaseStatementUpgrade)) return false;
         FundingPurchaseStatementUpgrade comp = (FundingPurchaseStatementUpgrade) obj;
@@ -260,6 +260,6 @@ public class FundingPurchaseStatementUpgrade {
                 comp.firstMonthPAndI.equals(this.firstMonthPAndI) &&
                 comp.serviceFee.equals(this.serviceFee) &&
                 comp.totalPurchaseAmount.equals(totalPurchaseAmount);
-    }
+    }*/
 
 }

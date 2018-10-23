@@ -2,27 +2,29 @@ package financebatch;
 
 import org.springframework.batch.item.ItemProcessor;
 
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+import java.text.ParseException;
+
 
 public class OrigFeeProcessor implements ItemProcessor<OriginationFeeUpgrade,OriginationFeeUpgrade> {
 
-    SQLWrapperOrigFee duplicate;
+    private SQLWrapperOrigFee duplicate;
 
     {
         try {
-            duplicate = new SQLWrapperOrigFee("SELECT * FROM DailyOriginationFee;");
-        } catch (SQLException e) {
+            duplicate = new SQLWrapperOrigFee("SELECT Date FROM DailyOriginationFee;");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
     @Override
-    public OriginationFeeUpgrade process(OriginationFeeUpgrade item)  {
+    public OriginationFeeUpgrade process(OriginationFeeUpgrade item) throws ParseException {
       // Need to add checking against items already contained in the database
-        if(duplicate.contains(item)){
+        if(item.getDate().isEmpty()){
+            return null;
+        }
+        else if(duplicate.contains(item.getDate())){
             return null;
         }
         return item;
