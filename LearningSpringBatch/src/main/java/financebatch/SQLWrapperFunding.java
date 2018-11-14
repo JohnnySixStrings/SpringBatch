@@ -64,6 +64,9 @@ class SQLWrapperFunding {
 
 
     }
+    void add(FundingPurchaseFromDB item){
+            duplicate.add(item);
+    }
      boolean contains(FundingPurchaseFromDB item){
 
         return duplicate.contains(item);

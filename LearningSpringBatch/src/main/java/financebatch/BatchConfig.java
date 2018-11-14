@@ -90,6 +90,7 @@ public class BatchConfig {
          beanWrapper.setTargetType(FundingPurchaseStatementUpgrade.class);
          lineMapper.setLineTokenizer(lineTokenizer);
          lineMapper.setFieldSetMapper(beanWrapper);
+
          flatFileItemReader.setLineMapper(lineMapper);
          flatFileItemReader.setLinesToSkip(1);
          return flatFileItemReader;

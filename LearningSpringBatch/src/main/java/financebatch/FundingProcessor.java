@@ -49,7 +49,22 @@ public class FundingProcessor implements ItemProcessor <FundingPurchaseStatement
                 item.getTotalPurchaseAmount()))){
             return null;
         }
-
+            duplicate.add(new FundingPurchaseFromDB(item.getFundingDate(),
+                    item.getLoanId(),
+                    item.getGrossFundingAmount(),
+                    item.getNetFundingAmount(),
+                    item.getOriginationFees(),
+                    item.getState(),
+                    item.getFinalGrade(),
+                    item.getFicoOfCustomer(),
+                    item.getTerm(),
+                    item.getPurchaseDate(),
+                    item.getInterestRate(),
+                    item.getNumberOfDaysOfInterest(),
+                    item.getInterimInterest(),
+                    item.getFirstMonthPAndI(),
+                    item.getServiceFee(),
+                    item.getTotalPurchaseAmount()));
             return item;
 
     }

@@ -27,6 +27,7 @@ public class OrigFeeProcessor implements ItemProcessor<OriginationFeeUpgrade,Ori
         else if(duplicate.contains(item.getDate())){
             return null;
         }
+        duplicate.add(item.getDate());
         return item;
     }
 }

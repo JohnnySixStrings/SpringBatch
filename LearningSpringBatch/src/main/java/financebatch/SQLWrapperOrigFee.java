@@ -42,8 +42,10 @@ class SQLWrapperOrigFee {
 
 
     }
-
-   public boolean contains(String item){
+    void add(String item){
+        duplicate.add(item);
+    }
+    boolean contains(String item){
 
         return duplicate.contains(item);
    }
